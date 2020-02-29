@@ -56,11 +56,8 @@ def push_url_to_db(app):
 
         elif r:
             new_methods = list(rule.methods)
-            old_methods = r["methods"]
-            if old_methods:
-                new_methods.extend(old_methods)
-            else:
-                old_methods = []
+            if r["methods"]:
+                new_methods.extend(r["methods"])
             new_methods = list(set(new_methods))
             mdbs["sys"].dbs["sys_urls"].update_one({"_id": r["_id"]},
                                                {"$set": {"methods": new_methods,
@@ -68,11 +65,11 @@ def push_url_to_db(app):
                                                          "type": type,
                                                          "create": "auto",
                                                          "update_time": now_time}})
-            new_methods.sort()
-            old_methods.sort()
-            if new_methods != old_methods or rule.endpoint != r["endpoint"]:
-                # 清理缓存
-                cache.delete_autokey(fun="get_sys_url", key_base64=False, db_type="redis", url=r["url"])
+
+    urls = mdbs["sys"].dbs["sys_urls"].find({})
+    for url in urls:
+        if "url" in url:
+            cache.delete(key="get_sys_url_url_{}".format(url['url']), db_type="redis")
 
     """
     # 清理已不存在的api

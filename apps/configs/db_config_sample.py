@@ -1,7 +1,5 @@
-#!/usr/bin/env python
 # -*-coding:utf-8-*-
-# @Time : 2017/11/1 ~ 2019/9/1
-# @Author : Allen Woo
+__author__ = "Allen Woo"
 DB_CONFIG = {
     "redis": {
         "host": [

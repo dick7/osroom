@@ -9,3 +9,16 @@ try:
     print("Kill uwsgi.")
 except Exception as e:
     print(e)
+    
+    
+# dick7
+'''
+try:
+    shcmd = """ps -ef | grep mongod | awk '{print $2}' | xargs kill -9"""
+    r = os.system(shcmd)
+    print("Kill mongod.")
+except Exception as e:
+    print(e)
+
+'''
+
