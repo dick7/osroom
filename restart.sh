@@ -15,19 +15,17 @@ cd $BASE_DIR
 if [ ! -d venv ];then
     virtualenv -p ~/anaconda3/bin/python venv
 fi
-VENV_DIR=/www/wwwroot/ztloadfield.com/dev/venv
-source $VENV_DIR/bin/activate
-pip install -Ur osroom/requirements.txt
+source venv/bin/activate
+pip install -Ur requirements.txt
 # pip install uwsgi
 # pip install pyyaml
-# pip freeze > osroom/requirements.txt
+# pip freeze > requirements.txt
 # echo "read -t 5"
 # read -t 5
 #########################
 killall -9 uwsgi
 # ps -ef|grep uwsgi|awk '{print $2}'|xargs kill -9
-cd $BASE_DIR
-$VENV_DIR/bin/uwsgi uwsgi.ini
+uwsgi uwsgi.ini
 # echo "read -t 5"
 # read -t 5
 ##########################
